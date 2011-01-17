@@ -1,5 +1,7 @@
 #pragma once
 
+#include "bass.h"
+#include <Windows.h>
 #include <HAPI_lib.h>
 #include <vector>
 
@@ -10,8 +12,7 @@ private:
 	~CSound( void );
 	CSound( CSound const& );
 	CSound& operator = ( CSound const& );
-	std::vector<char*> m_sound;
-	std::vector<int> m_soundId;
+	std::vector<HSAMPLE> m_soundId;
 public:
 	static CSound& Instance( void )
 	{

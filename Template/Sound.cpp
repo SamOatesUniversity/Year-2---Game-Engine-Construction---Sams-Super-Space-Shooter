@@ -2,6 +2,7 @@
 
 CSound::CSound(void)
 {
+	BASS_Init( -1, 44100, 0, GetActiveWindow(), NULL ); 
 }
 
 CSound::~CSound(void)
@@ -10,18 +11,23 @@ CSound::~CSound(void)
 
 void CSound::loadSound( int &id, char* soundLocation )
 {
-	HAPI->LoadSound( soundLocation, &id );
-	m_sound.push_back( soundLocation );
-	m_soundId.push_back( id );
-	id = m_sound.size() - 1;
+	HSAMPLE newSound = BASS_SampleLoad( FALSE, soundLocation, 0, 0, 100, NULL );
+	m_soundId.push_back( newSound );
+	id = m_soundId.size() - 1;
 }
 
 void CSound::playSound( int id )
 {
-	HAPI->PlayStreamedMedia( m_sound[id] );
+	HCHANNEL channel = BASS_SampleGetChannel( m_soundId[id], FALSE );
+	BASS_ChannelPlay( channel, FALSE );
 }
 
 void CSound::loopSound( int id )
 {
-	HAPI->PlayASound( m_soundId[1], true );
+	BASS_SAMPLE info;
+	BASS_SampleGetInfo( m_soundId[id], &info );
+	info.flags = BASS_SAMPLE_LOOP;
+	BASS_SampleSetInfo( m_soundId[id], &info );
+	HCHANNEL channel = BASS_SampleGetChannel( m_soundId[id], FALSE );
+	BASS_ChannelPlay( channel, FALSE );
 }

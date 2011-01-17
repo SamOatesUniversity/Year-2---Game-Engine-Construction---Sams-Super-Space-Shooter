@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClInclude Include="AiManger.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="bass.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="EmbededWebBrowser.h" />
     <ClInclude Include="EnemyBullet.h" />

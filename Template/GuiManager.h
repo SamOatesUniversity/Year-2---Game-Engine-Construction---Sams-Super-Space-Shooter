@@ -15,6 +15,7 @@ public:
 		m_iWidth /= m_iFrameCount;
 		m_iX = 144;
 		m_iY = 44;
+		m_side = TSideNeutral;
 	}
 	void setFrame( const int id ) { m_iActiveFrame = id; }
 	virtual void update( void ) { };
