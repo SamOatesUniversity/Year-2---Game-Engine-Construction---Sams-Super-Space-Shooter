@@ -26,7 +26,7 @@ bool CWorld::init( int width, int height )
 		return false;
 	}
 
-	//HAPI->SetShowFPS( true );
+	HAPI->SetShowFPS( true );
 	m_coreTimer = (float)HAPI->GetTime();
 	SetWindowText( GetActiveWindow(), "Sam's Super Space Shooter" );
 

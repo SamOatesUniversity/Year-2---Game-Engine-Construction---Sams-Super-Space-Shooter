@@ -1,4 +1,5 @@
 #pragma once
+
 #include <HAPI_lib.h>
 #include "Rectangle.h"
 
