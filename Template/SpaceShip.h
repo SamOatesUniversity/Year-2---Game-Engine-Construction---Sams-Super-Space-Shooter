@@ -12,7 +12,6 @@ private:
 	int m_iActiveBullet, m_iBulletCount, m_iScore, m_iDifficulty;
 	bool m_rightWingBullet;
 	CExplosion *m_explosion;
-	WebBrowser *m_web;
 public:
 	CSpaceShip(void);
 	~CSpaceShip(void);

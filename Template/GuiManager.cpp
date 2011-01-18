@@ -8,6 +8,7 @@ CGuiManager::CGuiManager(void)
 
 CGuiManager::~CGuiManager(void)
 {
+	CSound::Instance().stopSound( soundAmbient );
 }
 
 void CGuiManager::init( CVisualisation *vis, CGuiMenu *menu )
