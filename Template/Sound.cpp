@@ -31,3 +31,8 @@ void CSound::loopSound( int id )
 	HCHANNEL channel = BASS_SampleGetChannel( m_soundId[id], FALSE );
 	BASS_ChannelPlay( channel, FALSE );
 }
+
+void CSound::stopSound( int id )
+{
+	BASS_SampleStop( m_soundId[id] );
+}

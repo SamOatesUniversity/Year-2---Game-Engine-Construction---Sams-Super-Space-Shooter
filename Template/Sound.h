@@ -23,5 +23,6 @@ public:
 	void loadSound( int &id, char* soundLocation );
 	void playSound( int id );
 	void loopSound( int id );
+	void stopSound( int id );
 };
 

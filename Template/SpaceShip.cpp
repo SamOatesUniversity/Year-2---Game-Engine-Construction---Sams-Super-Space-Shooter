@@ -23,12 +23,11 @@ CSpaceShip::CSpaceShip(void)
 	m_explosion = new CExplosion();
 	m_iBulletCount = 14;
 	for( int i = 0; i < m_iBulletCount; i++ ) m_bullet.push_back( new CBullet() );
-	m_web = NULL;
+	CWebBrowser::Instance().Create();
 }
 
 CSpaceShip::~CSpaceShip(void)
 {
-	if( m_web ) delete m_web;
 }
 
 void CSpaceShip::init( void )
@@ -142,8 +141,7 @@ void CSpaceShip::kill( void )
 			_itoa_s( m_iScore, sz_score, 10 );
 			strcpy_s( sz_url, "http://samoatesgames.com/uni/GEC/space-fb.php?score=" );
 			strcat_s( sz_url, sz_score );
-			m_web = new WebBrowser( sz_url );
-			m_web->Visable( false );
+			CWebBrowser::Instance().NavigateTo( sz_url );
 		}
 	}
 }
@@ -161,7 +159,4 @@ void CSpaceShip::restart( void )
 	m_iScore = 0;
 	m_iHealth = 100;
 	m_isActive = true;
-
-	if( m_web ) delete m_web;
-	m_web = NULL;
 }
