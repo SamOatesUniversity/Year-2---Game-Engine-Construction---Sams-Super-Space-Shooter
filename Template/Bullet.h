@@ -16,4 +16,10 @@ public:
 	void fire( const int x, const int y );
 
 	bool hitEnemy( void ) { bool val = m_hitEnemy; m_hitEnemy = false; return val; }
+
+	void reset( void )
+	{
+		m_iX = -m_iWidth;
+		m_hitEnemy = false;
+	}
 };

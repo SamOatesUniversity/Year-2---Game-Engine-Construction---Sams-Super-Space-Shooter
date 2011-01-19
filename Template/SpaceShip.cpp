@@ -45,6 +45,8 @@ void CSpaceShip::init( void )
 	m_side = TSidePlayer;
 	m_iScore = 0;
 	m_iDifficulty = 1;
+	m_browserTimer = 0;
+	m_isBrowserActive = false;
 }
 
 void CSpaceShip::update( void )
@@ -124,6 +126,19 @@ void CSpaceShip::update( void )
 			m_iScore += (int)m_bullet[i]->hitEnemy() * ( 25 * m_iDifficulty );
 		}
   	}
+	else
+	{
+		HAPI_TMouseData ms;
+		HAPI->GetMouseData( &ms ); 
+		if( ms.leftButtonDown )
+		{
+			CWebBrowser::Instance().Visable( false );
+			m_isBrowserActive = false;
+		}
+	}
+
+	if( (float)HAPI->GetTime() - m_browserTimer > 2000 && m_isBrowserActive )
+		CWebBrowser::Instance().Visable( true );
 }
 
 void CSpaceShip::kill( void )
@@ -142,6 +157,8 @@ void CSpaceShip::kill( void )
 			strcpy_s( sz_url, "http://samoatesgames.com/uni/GEC/space-fb.php?score=" );
 			strcat_s( sz_url, sz_score );
 			CWebBrowser::Instance().NavigateTo( sz_url );
+			m_browserTimer = (float)HAPI->GetTime();
+			m_isBrowserActive = true;
 		}
 	}
 }
@@ -159,4 +176,9 @@ void CSpaceShip::restart( void )
 	m_iScore = 0;
 	m_iHealth = 100;
 	m_isActive = true;
+
+	for( int i = 0; i < m_iBulletCount; i++ )
+	{
+		m_bullet[i]->reset();
+	}	
 }

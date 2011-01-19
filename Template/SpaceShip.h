@@ -7,10 +7,10 @@
 class CSpaceShip : public CWorldEntity
 {
 private:
-	float m_Speed, m_Turn, m_fireTimer;
+	float m_Speed, m_Turn, m_fireTimer, m_browserTimer;
 	std::vector<CBullet*> m_bullet;
 	int m_iActiveBullet, m_iBulletCount, m_iScore, m_iDifficulty;
-	bool m_rightWingBullet;
+	bool m_rightWingBullet, m_isBrowserActive;
 	CExplosion *m_explosion;
 public:
 	CSpaceShip(void);
