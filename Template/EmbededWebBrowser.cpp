@@ -36,7 +36,7 @@ void CWebBrowser::Create( void )
 	this->parent_ = GetActiveWindow();
 	browser_ = CreateWindowEx( NULL, WC_DIALOG, NULL,
 							  WS_CHILD | WS_CLIPCHILDREN | WS_DISABLED,
-							  0, 0, 400, 300, parent_, NULL, NULL, NULL );
+							  10, 40, 780, 420, parent_, NULL, NULL, NULL );
 	if( browser_ )
 	{
 		SetWindowLongPtr( parent_, GWL_STYLE, GetWindowLongPtr( parent_, GWL_STYLE ) | WS_CLIPCHILDREN );
@@ -63,7 +63,9 @@ void CWebBrowser::NavigateTo( char* url )
 
 void CWebBrowser::Resize( int w, int h )
 {
-	MoveWindow( browser_, 0, 0, w, h, true );
+	RECT rcWindow;
+	GetWindowRect( browser_, &rcWindow);
+	MoveWindow( browser_, rcWindow.left, rcWindow.top, w, h, true );
 	UpdateWindow( browser_ ); 	
 }
 
@@ -71,7 +73,7 @@ void CWebBrowser::Position(int x, int y)
 {
 	RECT rcWindow;
 	GetWindowRect( browser_, &rcWindow);
-	MoveWindow( browser_, x, y, x + rcWindow.right, y + rcWindow.bottom, true );
+	MoveWindow( browser_, x, y, rcWindow.right, rcWindow.bottom, true );
 	UpdateWindow( browser_ );
 }
 
@@ -87,15 +89,16 @@ void CWebBrowser::Visable( bool visable )
 {
 	if( !visable )
 	{
-		EnableWindow( browser_, FALSE );
 		ShowWindow( browser_, SW_HIDE );
+		SetWindowLongPtr( browser_, GWL_STYLE, GetWindowLongPtr( browser_, GWL_STYLE ) & WS_DISABLED );
+		UpdateWindow( browser_ );
 		isVisable_ = false;
 	}
 	else
 	{
-		EnableWindow( browser_, TRUE );
-		SetWindowLongPtr( browser_, GWL_STYLE, GetWindowLongPtr( browser_, GWL_STYLE ) | WS_VISIBLE );
+		SetWindowLongPtr( browser_, GWL_STYLE, GetWindowLongPtr( browser_, GWL_STYLE ) &~ WS_DISABLED );
 		ShowWindow( browser_, SW_SHOW );
+		UpdateWindow( browser_ );
 		isVisable_ = true;
 	}
 }
